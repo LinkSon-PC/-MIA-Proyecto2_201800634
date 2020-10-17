@@ -8,14 +8,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.indexController = void 0;
+const configdb_1 = __importDefault(require("../config/configdb"));
 //import pool from '../datbase'
 class IndexController {
     index(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log('windos');
-            res.json({ message: "Tabla temporal Creada" });
+            const sql = "select * from usuario";
+            let result = yield configdb_1.default(sql, [], false);
+            res.json(result);
         });
     }
 }

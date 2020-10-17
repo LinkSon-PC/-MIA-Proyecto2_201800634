@@ -9,4 +9,4 @@ async function Open(sql: any, binds: any, autoCommit: any) {
     return result;
 }
 
-exports.Open = Open;
+export default Open;

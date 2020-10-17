@@ -22,4 +22,4 @@ function Open(sql, binds, autoCommit) {
         return result;
     });
 }
-exports.Open = Open;
+exports.default = Open;
