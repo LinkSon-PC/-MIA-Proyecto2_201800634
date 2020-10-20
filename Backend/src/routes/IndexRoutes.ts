@@ -11,7 +11,10 @@ class IndexRoutes {
 
     confing(): void{
         this.router.get('/',indexController.index);
+        this.router.post('/',indexController.usuario);
 
+        this.router.get('/pais',indexController.getPais);
+        this.router.post('/pais',indexController.postPais);
     }
 }
 

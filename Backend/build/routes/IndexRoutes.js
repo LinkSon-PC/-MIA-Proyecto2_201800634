@@ -9,6 +9,9 @@ class IndexRoutes {
     }
     confing() {
         this.router.get('/', IndexController_1.indexController.index);
+        this.router.post('/', IndexController_1.indexController.usuario);
+        this.router.get('/pais', IndexController_1.indexController.getPais);
+        this.router.post('/pais', IndexController_1.indexController.postPais);
     }
 }
 const indexRoutes = new IndexRoutes();

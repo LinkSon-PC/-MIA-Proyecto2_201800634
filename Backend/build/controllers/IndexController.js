@@ -19,8 +19,31 @@ class IndexController {
     index(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log('windos');
-            const sql = "select * from usuario";
+            const sql = "select * from Usuario";
             let result = yield configdb_1.default(sql, [], false);
+            res.json(result);
+        });
+    }
+    usuario(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { Nombre, Apellido, Fecha_Nacimiento, Correo, Contrasena, Credito, Estado, idPais } = req.body;
+            const sql = "insert into Usuario(Nombre, Apellido, Fecha_Nacimiento, Correo, Contrasena, Credito, Estado, idPais) values (:Nombre, :Apellido, :Fecha_Nacimiento, :Correo, :Contrasena, :Credito, :Estado, :idPais)";
+            let result = yield configdb_1.default(sql, [Nombre, Apellido, Fecha_Nacimiento, Correo, Contrasena, Credito, Estado, idPais], true);
+            res.json(result);
+        });
+    }
+    getPais(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const sql = "select * from Pais";
+            let result = yield configdb_1.default(sql, [], false);
+            res.json(result);
+        });
+    }
+    postPais(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { Pais } = req.body;
+            const sql = "insert into Pais(Pais) values (:Pais)";
+            let result = yield configdb_1.default(sql, [Pais], true);
             res.json(result);
         });
     }

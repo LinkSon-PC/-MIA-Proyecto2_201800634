@@ -3,3 +3,7 @@ export LD_LIBRARY_PATH=/usr/lib/oracle/18.3/client64/lib:$LD_LIBRARY_PATH
 
 //Visualizar Variable de entorno
 echo $LD_LIBRARY_PATH
+
+
+//si en dado casoo les tira error de libai.so.1
+sudo apt-get install libaio1
