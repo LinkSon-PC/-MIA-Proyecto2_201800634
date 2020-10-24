@@ -15,6 +15,18 @@ class IndexRoutes {
 
         this.router.get('/pais',indexController.getPais);
         this.router.post('/pais',indexController.postPais);
+
+        this.router.get('/categoria',indexController.getCategoria);
+        this.router.post('/categoria',indexController.postCategoria);
+
+        this.router.get('/clave',indexController.getClave);
+        this.router.post('/clave',indexController.postClave);
+
+        this.router.get('/producto',indexController.getProducto);
+        this.router.post('/producto',indexController.postProducto);
+
+        this.router.get('/pagina/:id',indexController.getPagina);
+        
     }
 }
 

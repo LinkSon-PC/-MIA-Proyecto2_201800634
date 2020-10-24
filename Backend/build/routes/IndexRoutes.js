@@ -12,6 +12,13 @@ class IndexRoutes {
         this.router.post('/', IndexController_1.indexController.usuario);
         this.router.get('/pais', IndexController_1.indexController.getPais);
         this.router.post('/pais', IndexController_1.indexController.postPais);
+        this.router.get('/categoria', IndexController_1.indexController.getCategoria);
+        this.router.post('/categoria', IndexController_1.indexController.postCategoria);
+        this.router.get('/clave', IndexController_1.indexController.getClave);
+        this.router.post('/clave', IndexController_1.indexController.postClave);
+        this.router.get('/producto', IndexController_1.indexController.getProducto);
+        this.router.post('/producto', IndexController_1.indexController.postProducto);
+        this.router.get('/pagina/:id', IndexController_1.indexController.getPagina);
     }
 }
 const indexRoutes = new IndexRoutes();

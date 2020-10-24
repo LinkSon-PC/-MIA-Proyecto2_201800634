@@ -47,5 +47,85 @@ class IndexController {
             res.json(result);
         });
     }
+    getCategoria(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const sql = "select * from Categoria";
+            let result = yield configdb_1.default(sql, [], false);
+            res.json(result);
+        });
+    }
+    postCategoria(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { Categoria } = req.body;
+            const sql = "insert into Categoria(Categoria) values (:Categoria)";
+            let result = yield configdb_1.default(sql, [Categoria], true);
+            res.json(result);
+        });
+    }
+    getProducto(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const sql = "select * from Producto";
+            let result = yield configdb_1.default(sql, [], false);
+            var Productos = [];
+            result.rows.map((user) => {
+                let userSchema = {
+                    "Nombre": user[0],
+                    "Detalle_Producto": user[1],
+                    "Precio": user[2],
+                    "idCategoria": user[3],
+                    "idUsuario": user[4],
+                    "Estado": user[5]
+                };
+                Productos.push(userSchema);
+            });
+            console.log(result.rows);
+            res.json(Productos);
+        });
+    }
+    postProducto(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { Nombre, Detalle_Producto, Precio, idCategoria, idUsuario, Estado } = req.body;
+            const sql = "insert into Producto( Nombre,Detalle_Producto,Precio,idCategoria,idUsuario,Estado) values (:Nombre, :Detalle_Producto, :Precio, :idCategoria, :idUsuario, :Estado )";
+            let result = yield configdb_1.default(sql, [Nombre, Detalle_Producto, Precio, idCategoria, idUsuario, Estado], true);
+            res.json(result);
+        });
+    }
+    getPagina(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            console.log(id);
+            const sql = "select * from Producto WHERE idPRoducto = :id";
+            let result = yield configdb_1.default(sql, [id], false);
+            var Productos = [];
+            result.rows.map((user) => {
+                let userSchema = {
+                    "Nombre": user[0],
+                    "Detalle_Producto": user[1],
+                    "Precio": user[2],
+                    "idCategoria": user[3],
+                    "idUsuario": user[4],
+                    "Estado": user[5]
+                };
+                Productos.push(userSchema);
+            });
+            console.log(Productos);
+            res.json(Productos);
+        });
+    }
+    getClave(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const sql = "select * from Clave";
+            let result = yield configdb_1.default(sql, [], false);
+            res.json(result);
+        });
+    }
+    postClave(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { Clave } = req.body;
+            const sql = "insert into Clave(Clave) values (:Clave)";
+            let result = yield configdb_1.default(sql, [Clave], true);
+            res.json(result);
+        });
+    }
 }
 exports.indexController = new IndexController();
