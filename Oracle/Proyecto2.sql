@@ -51,6 +51,8 @@ FOREIGN KEY (idProducto) REFERENCES Producto(idProducto),
 FOREIGN KEY (idClave) REFERENCES Clave(idClave)
 );
 
+SELECT * FROM producto WHERE idProducto = 2;
+
 drop table Producto;
 INSERT INTO usuario (nombre, contrasena) values ('anthonhy','password');
 select * from usuario;

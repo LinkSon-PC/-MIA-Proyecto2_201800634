@@ -48,9 +48,7 @@
                       <h5 class="card-title">{{producto.idCategoria}}</h5>                  
                   </div>
                   <div class="card-footer">
-                      <button type="submit"
-                         (click)="addProducto()"
-                          class="btn btn-warning btn-block">Edit User</button>
+                      <a [routerLink]="['/pagina', producto.idProducto]" class="btn btn-dark btn-block">Edit User</a>
                       <button (click)="addProducto()" type="submit"  class="btn btn-danger btn-block">Delete
                           User</button>
                   </div>

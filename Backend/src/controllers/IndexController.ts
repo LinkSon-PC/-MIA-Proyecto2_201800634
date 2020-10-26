@@ -57,12 +57,13 @@ class IndexController {
 
     result.rows.map((user:any) => {
         let userSchema = {
-            "Nombre": user[0],
-            "Detalle_Producto": user[1],
-            "Precio": user[2],
-            "idCategoria": user[3],
-            "idUsuario": user[4],
-            "Estado": user[5]	
+            "idProducto": user[0],
+            "Nombre": user[1],
+            "Detalle_Producto": user[2],
+            "Precio": user[3],
+            "idCategoria": user[4],
+            "idUsuario": user[5],
+            "Estado": user[6]	
         }
         Productos.push(userSchema);
     })
@@ -89,12 +90,13 @@ class IndexController {
 
     result.rows.map((user:any) => {
         let userSchema = {
-            "Nombre": user[0],
-            "Detalle_Producto": user[1],
-            "Precio": user[2],
-            "idCategoria": user[3],
-            "idUsuario": user[4],
-            "Estado": user[5]	
+            "idProducto": user[0],
+            "Nombre": user[1],
+            "Detalle_Producto": user[2],
+            "Precio": user[3],
+            "idCategoria": user[4],
+            "idUsuario": user[5],
+            "Estado": user[6]	
         }
         Productos.push(userSchema);
     })

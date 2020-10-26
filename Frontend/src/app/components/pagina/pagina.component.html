@@ -1,1 +1,78 @@
-<p>pagina works!</p>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Pricing</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Separated link</a>
+          </div>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="text" placeholder="Search">
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+
+  <div class="container m-5 bg-black row">
+    <div class="col-8">
+      <div class="container-fluid border-black">
+        <h1 class="font-weight-bolder">DESCRIPCION</h1>
+        <hr>
+        <p class="text-justify py-5">{{Producto.Detalle_Producto}}</p>
+        <hr>
+
+        <div class="row">
+          <div class="col">
+            <h5 style="font-size: 13PX;">PALABRAS CLAVE</h5>
+            <p class="justify"></p>
+          </div>
+          <div class="col-3">
+            <a class="btn btn-primary" href="#" role="button">COMENTARIOS</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card text-center">
+          <div class="card-header">{{Producto.Nombre}}</div>
+          <img src="" class="card-img-top" alt="NOT IMAGE">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Q {{Producto.Precio}}</li>
+            <li class="list-group-item">
+              <a href="#" class="card-link">LIKE</a>
+              <a href="#" class="card-link">UNLIKE</a>
+            </li>
+            <li class="list-group-item">
+              <a href="#" class="btn btn-primary">ADD TO CART</a>
+            </li>
+          </ul>
+        </div>
+    </div>
+  </div>

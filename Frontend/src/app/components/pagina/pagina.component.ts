@@ -12,15 +12,22 @@ export class PaginaComponent implements OnInit {
 
   constructor(public paginaService: PaginaService, private router: Router, private activatedRoute:ActivatedRoute) {}
 
+  Producto:ProductoInterface = {
+    "idUsuario": 0,
+    "Nombre": "",
+    "Detalle_Producto": "",
+    "Precio": 0,
+    "idCategoria": 0,
+    "idProducto": 0,
+    "Estado":"VISIBLE"
+  };
 
-  Producto:ProductoInterface[] = [];
   ngOnInit(): void {
     const params =this.activatedRoute.snapshot.params;
     console.log(params.id);
 
-
     this.paginaService.getPagina(params.id).subscribe((res: ProductoInterface[])=>{
-      this.Producto = res;
+      this.Producto = res[0];
     console.log(this.Producto);
     });
   }

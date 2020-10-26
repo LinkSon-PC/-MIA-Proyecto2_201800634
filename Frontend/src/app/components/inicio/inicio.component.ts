@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Route, Router, ActivatedRoute} from '@angular/router';
 
 import { ProductosService } from '../../services/productos/productos.service';
 import { ProductoInterface } from '../../models/productoInterface';
@@ -10,7 +11,7 @@ import { ProductoInterface } from '../../models/productoInterface';
 })
 export class InicioComponent implements OnInit {
 
-  constructor(public productosService: ProductosService) { }
+  constructor(public productosService: ProductosService, private router: Router) { }
 
 
   ngOnInit(): void {
@@ -31,6 +32,10 @@ export class InicioComponent implements OnInit {
     this.productosService.postProducto(this.Nombre,this.Detalle_Producto,this.Precio,this.idCategoria,this.idUsuario,this.Estado).subscribe((res: ProductoInterface[])=>{
       this.Productos = res;
     })
+  }
+
+  verPagina(id:number){
+    this.router.navigate(['/pagina',id]);
   }
 
 }
