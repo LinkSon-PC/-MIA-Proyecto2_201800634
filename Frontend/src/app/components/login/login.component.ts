@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductosService } from '../../services/productos/productos.service';
+import { UsuarioService } from '../../services/usuario/usuario.service';
+import { UsuarioInterface } from '../../models/usuarioInterface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,13 +10,24 @@ import { ProductosService } from '../../services/productos/productos.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public productosService:ProductosService) { }
+  constructor(public usuarioService:UsuarioService, private router: Router) { }
 
   ngOnInit(): void {
-    console.log('correcto'); 
-    this.productosService.getProductos().subscribe((res)=>{
-      console.log(res);
-    })
+    
   }
 
+  user:string = "";
+  pass:string = "";
+
+  BuscarUsuario(){
+    if(this.user!="" && this.pass!=""){
+      console.log(this.user,this.pass);
+      this.usuarioService.getUsuario(this.user,this.pass).subscribe((res:UsuarioInterface)=>{
+        if(res != null){
+          this.usuarioService.setSesion(res);
+          this.router.navigate(['/inicio']);
+        }
+      })
+    }
+  }
 }

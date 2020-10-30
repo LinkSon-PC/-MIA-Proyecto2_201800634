@@ -14,10 +14,68 @@ class IndexController {
 
     public async usuario (req: Request, res:Response){
         const { Nombre, Apellido, Fecha_Nacimiento, Correo, Contrasena, Credito, Estado, idPais } = req.body;
-        const sql = "insert into Usuario(Nombre, Apellido, Fecha_Nacimiento, Correo, Contrasena, Credito, Estado, idPais) values (:Nombre, :Apellido, :Fecha_Nacimiento, :Correo, :Contrasena, :Credito, :Estado, :idPais)";
+        const sql = "insert into Usuario(Nombre, Apellido, Fecha_Nacimiento, Correo, Contrasena, Credito, Estado, idPais) values (:Nombre, :Apellido, TO_DATE(:Fecha_Nacimiento,'DD-MM-YYYY'), :Correo, :Contrasena, :Credito, :Estado, :idPais)";
 
         let result = await BD(sql, [Nombre, Apellido, Fecha_Nacimiento, Correo, Contrasena, Credito, Estado, idPais], true);
         res.json(result);
+    }
+    public async getUsuario (req: Request, res:Response){
+        const {id} = req.params;
+        console.log(id);
+        const sql = "SELECT * FROM Usuario WHERE idUsuario = :id";
+        try {
+            let result = await BD(sql, [ id ], true);
+            var Usuario:any[] = [];
+
+            result.rows.map((user:any) => {
+                let userSchema = {
+                    "idUsuario": user[0],
+                    "Nombre": user[1],
+                    "Apellido": user[2],
+                    "Correo": user[3],
+                    "Contrasena": user[4],
+                    "Credito": user[5],
+                    "Estado": user[6],
+                    "idPais": user[7],
+                    "Fecha_Nacimiento": user[8]
+                }
+                Usuario.push(userSchema);
+            })
+            console.log(Usuario[0]);
+            res.json(Usuario[0]);
+        } catch (error) {
+            res.status(404).json({"mensaje":"DIRECCIIÓN /:id NO ENCONTRADA"});
+        }
+    }
+    public async BuscarUsuario (req: Request, res:Response){
+        const {usuario} = req.params;
+        const {pass} = req.params;
+        console.log(usuario,pass);
+        const sql = "SELECT * FROM Usuario WHERE Correo = :usuario AND Contrasena = :pass";
+        var Usuario:any[] = [];
+    
+        try {
+            let result = await BD(sql, [ usuario,pass ], true);
+                result.rows.map((user:any) => {
+                    let userSchema = {
+                        "idUsuario": user[0],
+                        "Nombre": user[1],
+                        "Apellido": user[2],
+                        "Fecha_Nacimiento": user[3],
+                        "Correo": user[4],
+                        "Contrasena": user[5],
+                        "Credito": user[6],
+                        "Estado": user[7],
+                        "idPais": user[8]	
+                    }
+                    Usuario.push(userSchema);
+                })
+                console.log(Usuario[0]);
+                res.json(Usuario[0]);
+            
+        } catch (error) {
+            res.status(402).json({"mensaje":"ERROR EN LA BASE DE DATOS"})
+        }
     }
 
     public async getPais (req: Request, res:Response){

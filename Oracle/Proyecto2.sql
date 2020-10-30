@@ -16,6 +16,9 @@ idPais INT,
 FOREIGN KEY (idPais) REFERENCES Pais(idPais)
 );
 
+SELECT * FROM Usuario;
+delete from Usuario;
+
 create table tipo_usuario(
 cod_tipo_usuario INT NOT NULL,
 nombre_tipo VARCHAR2(15) NOT NULL

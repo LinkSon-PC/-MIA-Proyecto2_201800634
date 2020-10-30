@@ -9,16 +9,20 @@ import { InicioComponent } from './components/inicio/inicio.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { PaginaComponent } from './components/pagina/pagina.component';
+import { NavComponent } from './components/nav/nav.component';
 
 import { ProductosService } from './services/productos/productos.service';
 import { PaginaService } from './services/pagina/pagina.service';
+import { PerfilComponent } from './components/perfil/perfil.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     InicioComponent,
-    PaginaComponent
+    PaginaComponent,
+    NavComponent,
+    PerfilComponent
   ],
   imports: [
     BrowserModule,

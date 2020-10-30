@@ -2,7 +2,7 @@ export interface UsuarioInterface{
     idUsuario?: number,
     Nombre?: string,
     Apellido?: string,
-    Fecha_Nacimietno?: Date,
+    Fecha_Nacimiento?: Date,
     Correo?: string,
     Contrasena?: string,
     Credito?: number,

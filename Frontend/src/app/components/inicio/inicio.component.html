@@ -1,6 +1,6 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand"  routerLink="/perfil" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -26,7 +26,7 @@
       </ul>
       <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="text" placeholder="Search">
-        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit" (click)="Imprimir()">Search</button>
       </form>
     </div>
   </nav>
@@ -48,9 +48,8 @@
                       <h5 class="card-title">{{producto.idCategoria}}</h5>                  
                   </div>
                   <div class="card-footer">
-                      <a [routerLink]="['/pagina', producto.idProducto]" class="btn btn-dark btn-block">Edit User</a>
-                      <button (click)="addProducto()" type="submit"  class="btn btn-danger btn-block">Delete
-                          User</button>
+                      <a [routerLink]="['/pagina', producto.idProducto]" class="btn btn-dark btn-block">ADD TO CART</a>
+                      <button (click)="verPagina(producto.idProducto)" type="submit"  class="btn btn-danger btn-block">DETALLE</button>
                   </div>
               </div>
           </div>

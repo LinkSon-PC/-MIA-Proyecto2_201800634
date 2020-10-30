@@ -34,6 +34,11 @@ export class InicioComponent implements OnInit {
     })
   }
 
+  Imprimir(){
+    let usuario = localStorage.getItem("Usuario");
+    console.log(usuario);
+  }
+
   verPagina(id:number){
     this.router.navigate(['/pagina',id]);
   }
