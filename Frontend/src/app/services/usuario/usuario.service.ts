@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { UsuarioInterface } from '../../models/usuarioInterface';
+import { map } from "rxjs/operators";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Router } from '@angular/router';
+
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +35,27 @@ export class UsuarioService {
   BuscarUsuario(id:string){
     const url = "http://localhost:3000/login/"+id;
     return this.http.get(url);
+  }
+
+  putUsuario(usuario: UsuarioInterface){
+    const url = "http://localhost:3000/";
+    return this.http.put(
+      url,
+      {
+        "idUsuario": usuario.idUsuario,
+        "Nombre": usuario.Nombre,
+        "Apellido": usuario.Apellido,
+        "Correo": usuario.Correo,
+        "Contrasena": usuario.Contrasena,
+        "Credito": usuario.Credito,
+        "Estado": usuario.Estado,
+        "idPais": usuario.idPais,
+        "Fecha_Nacimiento": usuario.Fecha_Nacimiento.toString().substring(0,10)
+      }
+      ,
+      { headers: this.headers }
+    ).pipe(map(data => data));
+ 
   }
   
   setSesion(user:UsuarioInterface){

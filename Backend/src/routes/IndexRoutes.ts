@@ -12,6 +12,7 @@ class IndexRoutes {
     confing(): void{
         this.router.get('/',indexController.index);
         this.router.post('/',indexController.usuario);
+        this.router.put('/',indexController.putUsuario);
         this.router.get('/login/:usuario/:pass',indexController.BuscarUsuario);
         this.router.get('/login/:id',indexController.getUsuario);
 
@@ -24,6 +25,11 @@ class IndexRoutes {
         this.router.get('/clave',indexController.getClave);
         this.router.post('/clave',indexController.postClave);
 
+        //PUBLICACIONES DEL USUARIO
+        this.router.get('/publicacion',indexController.getProducto);
+        this.router.get('/publicacion/:id',indexController.getPublicacion);
+
+        //PRODUCTOS PARA COMPRAR
         this.router.get('/producto',indexController.getProducto);
         this.router.post('/producto',indexController.postProducto);
 

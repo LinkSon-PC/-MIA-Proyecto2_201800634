@@ -5,6 +5,9 @@ import { InicioComponent } from './components/inicio/inicio.component'
 import { LoginComponent } from './components/login/login.component';
 import { PaginaComponent } from './components/pagina/pagina.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
+import { PublicacionComponent } from './components/publicacion/publicacion.component';
+import { NuevoPublicacionComponent } from './components/nuevo-publicacion/nuevo-publicacion.component';
+import { RegistroComponent } from './components/registro/registro.component';
 
 const routes: Routes = [
   {
@@ -23,6 +26,17 @@ const routes: Routes = [
   {
     path: 'perfil',
     component: PerfilComponent
+  },
+  {
+    path: 'publicacion',
+    component: PublicacionComponent
+  },
+  {
+    path: 'nuevo_publicacion',
+    component: NuevoPublicacionComponent
+  },{
+    path: 'registro',
+    component: RegistroComponent
   }
 ];
 

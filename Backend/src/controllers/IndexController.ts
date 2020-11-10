@@ -11,12 +11,21 @@ class IndexController {
         let result = await BD(sql, [], false);
         res.json(result);
     }
-
     public async usuario (req: Request, res:Response){
         const { Nombre, Apellido, Fecha_Nacimiento, Correo, Contrasena, Credito, Estado, idPais } = req.body;
         const sql = "insert into Usuario(Nombre, Apellido, Fecha_Nacimiento, Correo, Contrasena, Credito, Estado, idPais) values (:Nombre, :Apellido, TO_DATE(:Fecha_Nacimiento,'DD-MM-YYYY'), :Correo, :Contrasena, :Credito, :Estado, :idPais)";
 
         let result = await BD(sql, [Nombre, Apellido, Fecha_Nacimiento, Correo, Contrasena, Credito, Estado, idPais], true);
+        res.json(result);
+    }
+    public async putUsuario(req:Request, res:Response){
+        const { idUsuario, Nombre, Apellido, Fecha_Nacimiento, Correo, Contrasena, Credito, Estado, idPais } = req.body;
+        console.log(req.body);
+        const sql = `UPDATE Usuario SET Nombre=:Nombre, Apellido=:Apellido, Correo=:Correo, Contrasena=:Contrasena, Estado=:Estado,
+        Fecha_Nacimiento= TO_DATE(:Fecha_Nacimiento ,'YYYY-MM-DD'), idPais=:idPais, Credito=:Credito
+        WHERE idUsuario=:idUsuario`;
+
+        let result = await BD(sql, [ Nombre, Apellido, Correo, Contrasena, Estado, Fecha_Nacimiento, idPais, Credito, idUsuario ], true);
         res.json(result);
     }
     public async getUsuario (req: Request, res:Response){
@@ -95,7 +104,17 @@ class IndexController {
     public async getCategoria (req: Request, res:Response){
         const sql = "select * from Categoria";
         let result = await BD(sql, [], false);
-        res.json(result);
+
+        var Categoria:any[] = [];
+
+        result.rows.map((categoria:any) => {
+            let userSchema = {
+                "idCategoria": categoria[0],
+                "Categoria": categoria[1]
+            }
+            Categoria.push(userSchema);
+        })
+        res.json(Categoria);
     }
     public async postCategoria (req: Request, res:Response){
         const { Categoria } = req.body;
@@ -105,7 +124,29 @@ class IndexController {
         res.json(result);
     }
 
+    public async getPublicacion (req: Request, res:Response){
+        const {id} = req.params;
+        const sql = "select * from Producto WHERE idUsuario=:id";
+        let result = await BD(sql, [id], false);
 
+
+        var Productos:any[] = [];
+
+        result.rows.map((user:any) => {
+            let userSchema = {
+                "idProducto": user[0],
+                "Nombre": user[1],
+                "Detalle_Producto": user[2],
+                "Precio": user[3],
+                "idCategoria": user[4],
+                "idUsuario": user[5],
+                "Estado": user[6]	
+            }
+            Productos.push(userSchema);
+        })
+        console.log(result.rows);
+        res.json(Productos);
+    }
     public async getProducto (req: Request, res:Response){
         const sql = "select * from Producto";
         let result = await BD(sql, [], false);

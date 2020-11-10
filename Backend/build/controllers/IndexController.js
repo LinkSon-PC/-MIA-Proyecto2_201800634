@@ -32,6 +32,17 @@ class IndexController {
             res.json(result);
         });
     }
+    putUsuario(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { idUsuario, Nombre, Apellido, Fecha_Nacimiento, Correo, Contrasena, Credito, Estado, idPais } = req.body;
+            console.log(req.body);
+            const sql = `UPDATE Usuario SET Nombre=:Nombre, Apellido=:Apellido, Correo=:Correo, Contrasena=:Contrasena, Estado=:Estado,
+        Fecha_Nacimiento= TO_DATE(:Fecha_Nacimiento ,'YYYY-MM-DD'), idPais=:idPais, Credito=:Credito
+        WHERE idUsuario=:idUsuario`;
+            let result = yield configdb_1.default(sql, [Nombre, Apellido, Correo, Contrasena, Estado, Fecha_Nacimiento, idPais, Credito, idUsuario], true);
+            res.json(result);
+        });
+    }
     getUsuario(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
@@ -112,7 +123,15 @@ class IndexController {
         return __awaiter(this, void 0, void 0, function* () {
             const sql = "select * from Categoria";
             let result = yield configdb_1.default(sql, [], false);
-            res.json(result);
+            var Categoria = [];
+            result.rows.map((categoria) => {
+                let userSchema = {
+                    "idCategoria": categoria[0],
+                    "Categoria": categoria[1]
+                };
+                Categoria.push(userSchema);
+            });
+            res.json(Categoria);
         });
     }
     postCategoria(req, res) {
@@ -121,6 +140,28 @@ class IndexController {
             const sql = "insert into Categoria(Categoria) values (:Categoria)";
             let result = yield configdb_1.default(sql, [Categoria], true);
             res.json(result);
+        });
+    }
+    getPublicacion(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const sql = "select * from Producto WHERE idUsuario=:id";
+            let result = yield configdb_1.default(sql, [id], false);
+            var Productos = [];
+            result.rows.map((user) => {
+                let userSchema = {
+                    "idProducto": user[0],
+                    "Nombre": user[1],
+                    "Detalle_Producto": user[2],
+                    "Precio": user[3],
+                    "idCategoria": user[4],
+                    "idUsuario": user[5],
+                    "Estado": user[6]
+                };
+                Productos.push(userSchema);
+            });
+            console.log(result.rows);
+            res.json(Productos);
         });
     }
     getProducto(req, res) {

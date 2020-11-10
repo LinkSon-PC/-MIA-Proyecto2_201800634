@@ -17,12 +17,17 @@ export class ProductosService {
     return this.http.get(url);
   }
 
+  getPublicaciones(id:string){
+    const url = "http://localhost:3000/publicacion/"+id;
+    return this.http.get(url);
+  }
+
   deleteProducto(id:any){
     const url = "http://localhost:3000/producto/" + id;
     return this.http.delete(url).pipe(map(data => data));
   }
 
-  postProducto(Nombre: string, Detalle_Producto: string , Precio: number, idCategoria:number, idUsuario:number, Estado: string){
+  postProducto(Nombre: String, Detalle_Producto: String , Precio: Number, idCategoria:Number, idUsuario:Number, Estado: String){
     const url = "http://localhost:3000/producto"
     return this.http.post(
       url,

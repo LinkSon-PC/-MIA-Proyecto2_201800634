@@ -17,7 +17,7 @@ export class PerfilComponent implements OnInit {
   ngOnInit(): void {
     this.usuarioService.BuscarUsuario(this.usuarioService.getSesionId()).subscribe((res:UsuarioInterface)=>{
       this.Usuario = res;
-      console.log(this.Usuario.Fecha_Nacimiento);
+      console.log(this.Usuario.Fecha_Nacimiento.toString().substring(0,10));
       console.log(res.Fecha_Nacimiento);
     });
   }
@@ -34,6 +34,12 @@ export class PerfilComponent implements OnInit {
     idPais: 0,
     Estado: ""
   };
+
+  putUsuario(){
+    this.usuarioService.putUsuario(this.Usuario).subscribe(res=>{
+      console.log(res);
+    })
+  }
   
 
 }

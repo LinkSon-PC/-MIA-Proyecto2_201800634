@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand"  routerLink="/perfil">Perfil</a>
+    <a class="navbar-brand"  routerLink="/publicacion">Publicaciones</a>
+</nav>
+
+<div class="container">
+    <div class="row m-3">
+        <h1 class="mr-5">PRODUCTOS AGREGADOS</h1>
+        <a class="btn btn-primary h-25 w-25" [routerLink]="['/nuevo_publicacion']" role="button">AÑADIR</a>
+    </div>
+
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">NOMBRE</th>
+        <th scope="col">DETALLE</th>
+        <th scope="col">PRECIO</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let publicacion of Publicaciones">
+        <th scope="row">{{publicacion.idProducto}}</th>
+        <td>{{publicacion.Nombre}}</td>
+        <td>{{publicacion.Detalle_Producto}}</td>
+        <td>{{publicacion.Precio}}</td>
+        <td>
+            <a class="btn btn-primary" href="#" role="button">{{publicacion.Estado}}</a>
+        </td>
+      </tr>
+      
+    </tbody>
+</table>
+</div>

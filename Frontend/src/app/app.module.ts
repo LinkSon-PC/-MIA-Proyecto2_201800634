@@ -14,6 +14,9 @@ import { NavComponent } from './components/nav/nav.component';
 import { ProductosService } from './services/productos/productos.service';
 import { PaginaService } from './services/pagina/pagina.service';
 import { PerfilComponent } from './components/perfil/perfil.component';
+import { PublicacionComponent } from './components/publicacion/publicacion.component';
+import { NuevoPublicacionComponent } from './components/nuevo-publicacion/nuevo-publicacion.component';
+import { RegistroComponent } from './components/registro/registro.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { PerfilComponent } from './components/perfil/perfil.component';
     InicioComponent,
     PaginaComponent,
     NavComponent,
-    PerfilComponent
+    PerfilComponent,
+    PublicacionComponent,
+    NuevoPublicacionComponent,
+    RegistroComponent
   ],
   imports: [
     BrowserModule,

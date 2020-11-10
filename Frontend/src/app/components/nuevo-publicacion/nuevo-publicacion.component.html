@@ -1,0 +1,54 @@
+
+  <div class="container m-5 bg-black row">
+    <div class="col-8">
+      <div class="container-fluid border-black">
+        <label for="exampleTextarea">DESCRIPCION</label>  
+        <hr>
+        <textarea  [(ngModel)]="publicacion.Detalle_Producto" class="form-control" id="exampleTextarea" rows="3"></textarea>
+        <hr>
+
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label class="col-form-label" for="inputDefault">PALABRAS CLAVE</label>
+              <input type="text" class="form-control" placeholder="Default input" id="inputDefault">
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card text-center">
+          <div class="card-header">
+            <div class="form-group">
+              <input type="text" [(ngModel)]="publicacion.Nombre" class="form-control" placeholder="NOMBRE PRODUCTO" id="inputDefault">
+            </div>
+          </div>
+          <img src="" class="card-img-top" alt="NOT IMAGE">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <button class="btn btn-primary">AGREGAR IMAGEN</button>
+            </li>
+            <li class="list-group-item">
+                <div class="form-group">
+                  <input type="text" [(ngModel)]="publicacion.Precio" class="form-control" placeholder="Q" id="inputDefault">
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="form-group">
+                    <label class="col-form-label" for="inputDefault">CATEGORIA</label>
+                    <select class="custom-select" [(ngModel)]="publicacion.idCategoria">
+                        <option selected="1">SELECCIONAR CATEGORIA</option>
+                        <option  *ngFor="let arreglo of Categoria" value="{{arreglo.idCategoria}}">{{arreglo.Categoria}}</option>
+                    </select>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <button (click)="PostPublicacion()" class="btn btn-primary">AGREGAR PRODUCTO</button>
+            </li>
+          </ul>
+        </div>
+    </div>
+  </div>
