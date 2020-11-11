@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioInterface } from '../../models/usuarioInterface';
 import { UsuarioService } from '../../services/usuario/usuario.service';
+import { PaisService } from '../../services/pais/pais.service';
+import { PaisInterface } from '../../models/paisInterface';
 
 @Component({
   selector: 'app-registro',
@@ -9,9 +11,13 @@ import { UsuarioService } from '../../services/usuario/usuario.service';
 })
 export class RegistroComponent implements OnInit {
 
-  constructor(private usuarioService:UsuarioService) { }
+  constructor(private usuarioService:UsuarioService, private paisServices: PaisService) { }
 
   ngOnInit(): void {
+    this.paisServices.getPais().subscribe((res: PaisInterface[])=>{
+      this.Pais = res;
+      console.log(this.Pais);
+    });
   }
 
   Usuario:UsuarioInterface = {
@@ -23,6 +29,18 @@ export class RegistroComponent implements OnInit {
     Fecha_Nacimiento: new Date(),
     Credito: 0,
     idPais: 0,
-    Estado: ""
+    Estado: "NOVERIFICADO"
   };
+
+  Pais:PaisInterface[] = [];
+  confirmPassword: string = "";
+  Fecha_Nacimiento: string = "";
+
+  postUsaurio(){
+    if(this.Usuario.Contrasena!= '' && this.Usuario.Contrasena == this.confirmPassword){
+      this.usuarioService.postUsuario(this.Usuario, this.Fecha_Nacimiento).subscribe(res=>{
+        console.log(res);
+      });
+    }
+  }
 }

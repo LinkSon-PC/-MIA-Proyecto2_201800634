@@ -7,5 +7,5 @@ export interface UsuarioInterface{
     Contrasena?: string,
     Credito?: number,
     Estado?: string,
-    idPais?: number
+    idPais?: Number
 }

@@ -13,9 +13,13 @@ class IndexController {
     }
     public async usuario (req: Request, res:Response){
         const { Nombre, Apellido, Fecha_Nacimiento, Correo, Contrasena, Credito, Estado, idPais } = req.body;
-        const sql = "insert into Usuario(Nombre, Apellido, Fecha_Nacimiento, Correo, Contrasena, Credito, Estado, idPais) values (:Nombre, :Apellido, TO_DATE(:Fecha_Nacimiento,'DD-MM-YYYY'), :Correo, :Contrasena, :Credito, :Estado, :idPais)";
+        const sql = "insert into Usuario(Nombre, Apellido, Fecha_Nacimiento, Correo, Contrasena, Credito, Estado, idPais) values (:Nombre, :Apellido, TO_DATE(:Fecha_Nacimiento,'YYYY-MM-DD'), :Correo, :Contrasena, :Credito, :Estado, :idPais)";
 
         let result = await BD(sql, [Nombre, Apellido, Fecha_Nacimiento, Correo, Contrasena, Credito, Estado, idPais], true);
+        
+        const sql2 = "insert into Carrito(idUsuario, Estado) VALUES ((select max(idUsuario) from Usuario), 'NO_CANCELADO')";
+         await BD(sql2, [], true);
+        
         res.json(result);
     }
     public async putUsuario(req:Request, res:Response){
@@ -90,7 +94,17 @@ class IndexController {
     public async getPais (req: Request, res:Response){
         const sql = "select * from Pais";
         let result = await BD(sql, [], false);
-        res.json(result);
+        var Pais:any[] = [];
+
+        result.rows.map((user:any) => {
+            let userSchema = {
+                "idPais": user[0],
+                "Pais": user[1]
+            }
+            Pais.push(userSchema);
+        })
+        console.log(Pais);
+        res.json(Pais);
     }
     public async postPais (req: Request, res:Response){
         const { Pais } = req.body;
@@ -185,20 +199,20 @@ class IndexController {
         let result = await BD(sql, [id], false);
 
 
-    var Productos:any[] = [];
+        var Productos:any[] = [];
 
-    result.rows.map((user:any) => {
-        let userSchema = {
-            "idProducto": user[0],
-            "Nombre": user[1],
-            "Detalle_Producto": user[2],
-            "Precio": user[3],
-            "idCategoria": user[4],
-            "idUsuario": user[5],
-            "Estado": user[6]	
-        }
-        Productos.push(userSchema);
-    })
+        result.rows.map((user:any) => {
+            let userSchema = {
+                "idProducto": user[0],
+                "Nombre": user[1],
+                "Detalle_Producto": user[2],
+                "Precio": user[3],
+                "idCategoria": user[4],
+                "idUsuario": user[5],
+                "Estado": user[6]	
+            }
+            Productos.push(userSchema);
+        })
         console.log(Productos);
         res.json(Productos);
     }
@@ -214,6 +228,41 @@ class IndexController {
         const sql = "insert into Clave(Clave) values (:Clave)";
 
         let result = await BD(sql, [Clave], true);
+        res.json(result);
+    }
+
+    public async getCarrito(req:Request, res:Response){
+        const {id} = req.params;
+        console.log(id);
+        const sql = `select  Producto.idProducto, Producto.nombre, producto.detalle_producto, producto.precio  from Detalle_Carrito, Carrito, Producto WHERE Carrito.idUsuario = 1
+        AND Carrito.idCarrito = Detalle_Carrito.idCarrito
+        AND Carrito.Estado = 'NO_CANCELADO'
+        AND producto.idproducto = detalle_carrito.idproducto`;
+        let result = await BD(sql, [id], false);
+
+
+        var Productos:any[] = [];
+
+        result.rows.map((user:any) => {
+            let userSchema = {
+                "idProducto": user[0],
+                "Nombre": user[1],
+                "Detalle_Producto": user[2],
+                "Precio": user[3]
+            }
+            Productos.push(userSchema);
+        })
+        console.log(Productos);
+        res.json(Productos);
+
+    }
+    public async postCarrito (req: Request, res:Response){
+        const { idUsuario, idProducto } = req.body;
+        const sql = `insert into Carrito(idCarrito,idProducto,Cantidad) values 
+        ((select idCarrito Where idUsuario=:idUsuario AND Estado = 'NO_CANCELADO'),
+        :idProducto, 1)`;
+
+        let result = await BD(sql, [idUsuario, idProducto], true);
         res.json(result);
     }
 }

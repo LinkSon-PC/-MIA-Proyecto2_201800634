@@ -22,6 +22,8 @@ class IndexRoutes {
         //PUBLICACIONES DEL USUARIO
         this.router.get('/publicacion', IndexController_1.indexController.getProducto);
         this.router.get('/publicacion/:id', IndexController_1.indexController.getPublicacion);
+        this.router.get('/carrito/:id', IndexController_1.indexController.getCarrito);
+        this.router.post('/carrito', IndexController_1.indexController.postCarrito);
         //PRODUCTOS PARA COMPRAR
         this.router.get('/producto', IndexController_1.indexController.getProducto);
         this.router.post('/producto', IndexController_1.indexController.postProducto);

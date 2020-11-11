@@ -17,8 +17,10 @@ FOREIGN KEY (idPais) REFERENCES Pais(idPais)
 );
 
 SELECT * FROM Usuario;
-delete from Usuario;
+delete from Usuario WHERE idUsuario = 26;
+select max(idUsuario) from Usuario;
 update  usuario set Fecha_Nacimiento = TO_DATE('2020-10-9','YYYY-MM-DD') WHERE idusuario=1;
+COMMIT WORK;
 
 create table tipo_usuario(
 cod_tipo_usuario INT NOT NULL,
@@ -68,7 +70,16 @@ Estado VARCHAR2(15),
 FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario)
 );
 SELECT * FROM Carrito;
+select  Producto.idProducto, Producto.nombre, producto.detalle_producto, producto.precio  from Detalle_Carrito, Carrito, Producto WHERE Carrito.idUsuario = 1
+            AND Carrito.idCarrito = Detalle_Carrito.idCarrito
+            AND Carrito.Estado = 'NO_CANCELADO'
+            AND producto.idproducto = detalle_carrito.idproducto;
+DELETE FROM Carrito WHERE idUsuario =21;
 INSERT INTO Carrito(idUsuario, Estado) VALUES (21,'NO_CANCELADO');
+insert into Carrito(idUsuario, Estado) VALUES ((select max(idUsuario) from Usuario), 'NO_CANCELADO');
+insert into Detalle_Carrito(idCarrito,idProducto,Cantidad) values 
+        ((select idCarrito FROM Carrito Where idUsuario=1 AND Estado = 'NO_CANCELADO'),
+        1, 1);
 
 CREATE TABLE Detalle_Carrito(
 idDetalle_Carrito INT NOT NULL PRIMARY KEY,

@@ -62,12 +62,14 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="inputCity">PAIS</label>
-                        <input type="text" [(ngModel)]="Usuario.idPais" name="Pais" class="form-control">
+                        <label for="inputDefault">PAIS</label>
+                            <select class="custom-select" [(ngModel)]="Usuario.idPais" name="idPais">
+                                <option  *ngFor="let arreglo of Pais" value="{{arreglo.idPais}}">{{arreglo.Pais}}</option>
+                            </select>
                     </div>
                     <div class="form-group col-md-6">
                       <label for="inputCity">FECHA DE NACIMIENTO</label><br>
-                      <input type="date" step="1" name="fecha" >
+                      <input type="date" [(ngModel)]="Fecha_Nacimiento" step="1" name="fecha" >
                     </div>
                 </div>
                 <button type="submit" (click)="putUsuario()" class="btn btn-primary">MODIFICAR DATOS</button>

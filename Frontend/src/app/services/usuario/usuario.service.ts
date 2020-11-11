@@ -37,7 +37,7 @@ export class UsuarioService {
     return this.http.get(url);
   }
 
-  putUsuario(usuario: UsuarioInterface){
+  putUsuario(usuario: UsuarioInterface, fecha: string){
     const url = "http://localhost:3000/";
     return this.http.put(
       url,
@@ -50,7 +50,26 @@ export class UsuarioService {
         "Credito": usuario.Credito,
         "Estado": usuario.Estado,
         "idPais": usuario.idPais,
-        "Fecha_Nacimiento": usuario.Fecha_Nacimiento.toString().substring(0,10)
+        "Fecha_Nacimiento": fecha
+      }
+      ,
+      { headers: this.headers }
+    ).pipe(map(data => data));
+ 
+  }
+  postUsuario(usuario: UsuarioInterface, fecha: string){
+    const url = "http://localhost:3000/";
+    return this.http.post(
+      url,
+      {
+        "Nombre": usuario.Nombre,
+        "Apellido": usuario.Apellido,
+        "Correo": usuario.Correo,
+        "Contrasena": usuario.Contrasena,
+        "Credito": usuario.Credito,
+        "Estado": usuario.Estado,
+        "idPais": usuario.idPais,
+        "Fecha_Nacimiento": fecha
       }
       ,
       { headers: this.headers }

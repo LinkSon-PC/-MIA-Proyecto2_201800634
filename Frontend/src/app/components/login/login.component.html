@@ -11,8 +11,8 @@
             <input type="password" [(ngModel)]="pass" name="pass" id="pass" class="form-control" required>
           </div>
           <button class="btn btn-primary mx-3" (click)="BuscarUsuario()" type="submit">INGRESAR</button>
-          <button class="btn btn-primary"  type="submit">REGISTRARSE</button>
-          <button class="btn btn-primary ml-4 my-1"  type="submit">RECUPERAR CONTRASENA</button>
+          <a class="btn btn-primary" routerLink="/registro" >REGISTRARSE</a>
+          <button class="btn btn-primary ml-4 my-1" type="submit">RECUPERAR CONTRASENA</button>
         </fieldset>
       </form>
       

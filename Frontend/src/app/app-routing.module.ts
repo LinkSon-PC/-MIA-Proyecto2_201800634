@@ -8,6 +8,7 @@ import { PerfilComponent } from './components/perfil/perfil.component';
 import { PublicacionComponent } from './components/publicacion/publicacion.component';
 import { NuevoPublicacionComponent } from './components/nuevo-publicacion/nuevo-publicacion.component';
 import { RegistroComponent } from './components/registro/registro.component';
+import { CarritoComponent } from './components/carrito/carrito.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,9 @@ const routes: Routes = [
   },{
     path: 'registro',
     component: RegistroComponent
+  },{
+    path: 'carrito',
+    component: CarritoComponent
   }
 ];
 

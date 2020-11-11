@@ -22,6 +22,25 @@ export class ProductosService {
     return this.http.get(url);
   }
 
+
+  getCarrito(id:string){
+    const url = "http://localhost:3000/carrito/"+id;
+    return this.http.get(url);
+  }
+  añadirCarrito(id:string,producto:string){
+    const url = "http://localhost:3000/carrito";
+    return this.http.post(
+      url,
+      {
+        "idUsuario": id,
+        "idProducto": producto,
+      }
+      ,
+      { headers: this.headers }
+    ).pipe(map(data => data));
+  }
+
+
   deleteProducto(id:any){
     const url = "http://localhost:3000/producto/" + id;
     return this.http.delete(url).pipe(map(data => data));

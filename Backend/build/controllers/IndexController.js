@@ -27,8 +27,10 @@ class IndexController {
     usuario(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { Nombre, Apellido, Fecha_Nacimiento, Correo, Contrasena, Credito, Estado, idPais } = req.body;
-            const sql = "insert into Usuario(Nombre, Apellido, Fecha_Nacimiento, Correo, Contrasena, Credito, Estado, idPais) values (:Nombre, :Apellido, TO_DATE(:Fecha_Nacimiento,'DD-MM-YYYY'), :Correo, :Contrasena, :Credito, :Estado, :idPais)";
+            const sql = "insert into Usuario(Nombre, Apellido, Fecha_Nacimiento, Correo, Contrasena, Credito, Estado, idPais) values (:Nombre, :Apellido, TO_DATE(:Fecha_Nacimiento,'YYYY-MM-DD'), :Correo, :Contrasena, :Credito, :Estado, :idPais)";
             let result = yield configdb_1.default(sql, [Nombre, Apellido, Fecha_Nacimiento, Correo, Contrasena, Credito, Estado, idPais], true);
+            const sql2 = "insert into Carrito(idUsuario, Estado) VALUES ((select max(idUsuario) from Usuario), 'NO_CANCELADO')";
+            yield configdb_1.default(sql2, [], true);
             res.json(result);
         });
     }
@@ -108,7 +110,16 @@ class IndexController {
         return __awaiter(this, void 0, void 0, function* () {
             const sql = "select * from Pais";
             let result = yield configdb_1.default(sql, [], false);
-            res.json(result);
+            var Pais = [];
+            result.rows.map((user) => {
+                let userSchema = {
+                    "idPais": user[0],
+                    "Pais": user[1]
+                };
+                Pais.push(userSchema);
+            });
+            console.log(Pais);
+            res.json(Pais);
         });
     }
     postPais(req, res) {
@@ -228,6 +239,39 @@ class IndexController {
             const { Clave } = req.body;
             const sql = "insert into Clave(Clave) values (:Clave)";
             let result = yield configdb_1.default(sql, [Clave], true);
+            res.json(result);
+        });
+    }
+    getCarrito(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            console.log(id);
+            const sql = `select  Producto.idProducto, Producto.nombre, producto.detalle_producto, producto.precio  from Detalle_Carrito, Carrito, Producto WHERE Carrito.idUsuario = 1
+        AND Carrito.idCarrito = Detalle_Carrito.idCarrito
+        AND Carrito.Estado = 'NO_CANCELADO'
+        AND producto.idproducto = detalle_carrito.idproducto`;
+            let result = yield configdb_1.default(sql, [id], false);
+            var Productos = [];
+            result.rows.map((user) => {
+                let userSchema = {
+                    "idProducto": user[0],
+                    "Nombre": user[1],
+                    "Detalle_Producto": user[2],
+                    "Precio": user[3]
+                };
+                Productos.push(userSchema);
+            });
+            console.log(Productos);
+            res.json(Productos);
+        });
+    }
+    postCarrito(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { idUsuario, idProducto } = req.body;
+            const sql = `insert into Carrito(idCarrito,idProducto,Cantidad) values 
+        ((select idCarrito Where idUsuario=:idUsuario AND Estado = 'NO_CANCELADO'),
+        :idProducto, 1)`;
+            let result = yield configdb_1.default(sql, [idUsuario, idProducto], true);
             res.json(result);
         });
     }

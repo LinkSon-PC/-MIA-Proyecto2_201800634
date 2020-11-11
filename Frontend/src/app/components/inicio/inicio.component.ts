@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Route, Router, ActivatedRoute} from '@angular/router';
+import { UsuarioService } from '../../services/usuario/usuario.service';
 import { ProductosService } from '../../services/productos/productos.service';
 import { ProductoInterface } from '../../models/productoInterface';
 
@@ -10,7 +11,7 @@ import { ProductoInterface } from '../../models/productoInterface';
 })
 export class InicioComponent implements OnInit {
 
-  constructor(public productosService: ProductosService, private router: Router) { }
+  constructor(public productosService: ProductosService, private router: Router, private usuarioService: UsuarioService) { }
 
 
   ngOnInit(): void {
@@ -40,6 +41,12 @@ export class InicioComponent implements OnInit {
 
   verPagina(id:number){
     this.router.navigate(['/pagina',id]);
+  }
+
+  anadirCarrito(idProducto: number){
+    this.productosService.añadirCarrito(this.usuarioService.getSesionId(), idProducto.toString()).subscribe(res=>{
+      console.log(res);
+    })
   }
 
 }

@@ -17,6 +17,7 @@ import { PerfilComponent } from './components/perfil/perfil.component';
 import { PublicacionComponent } from './components/publicacion/publicacion.component';
 import { NuevoPublicacionComponent } from './components/nuevo-publicacion/nuevo-publicacion.component';
 import { RegistroComponent } from './components/registro/registro.component';
+import { CarritoComponent } from './components/carrito/carrito.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { RegistroComponent } from './components/registro/registro.component';
     PerfilComponent,
     PublicacionComponent,
     NuevoPublicacionComponent,
-    RegistroComponent
+    RegistroComponent,
+    CarritoComponent
   ],
   imports: [
     BrowserModule,

@@ -2,6 +2,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand"  routerLink="/perfil">Perfil</a>
     <a class="navbar-brand"  routerLink="/publicacion">Publicaciones</a>
+    <a class="navbar-brand"  routerLink="/carrito">Carrito</a>
   </nav>
 
 
@@ -21,7 +22,7 @@
                       <h5 class="card-title">{{producto.idCategoria}}</h5>                  
                   </div>
                   <div class="card-footer">
-                      <a [routerLink]="['/pagina', producto.idProducto]" class="btn btn-dark btn-block">ADD TO CART</a>
+                      <a (click)="anadirCarrito(producto.idProducto)" class="btn btn-dark btn-block">ADD TO CART</a>
                       <button (click)="verPagina(producto.idProducto)" type="submit"  class="btn btn-danger btn-block">DETALLE</button>
                   </div>
               </div>
