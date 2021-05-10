@@ -9,7 +9,7 @@ export class CategoriaService {
   constructor(private http: HttpClient) { }
 
   getCategoria(){
-    const url = "http://localhost:3000/categoria";
+    const url = "http://07fcba2a17bd.ngrok.io/categoria";
     return this.http.get(url);
   }
   

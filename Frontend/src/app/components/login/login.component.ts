@@ -19,6 +19,8 @@ export class LoginComponent implements OnInit {
   user:string = "";
   pass:string = "";
 
+  correo:string = "";
+
   BuscarUsuario(){
     if(this.user!="" && this.pass!=""){
       console.log(this.user,this.pass);
@@ -33,5 +35,21 @@ export class LoginComponent implements OnInit {
 
   hola(){
     this.router.navigate(['/registro']);
+  }
+
+  Reestablecer_Contrasena(){
+    console.log(this.correo);
+    if(this.correo!=""){
+      this.usuarioService.Reestablecer_Correo(this.correo).subscribe((res: any)=>{
+        console.log(res);
+  
+        if(res!=null){
+          alert("MENSAJE DE CAMBIO DE CONTRASEÑA ENVIADO");
+          this.usuarioService.postEmail(res, this.correo, "http://localhost:4200/contrasena/"+res).subscribe(res=>{
+            console.log("CORREO ENVIADO");
+          })
+        }
+      });
+    }
   }
 }

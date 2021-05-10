@@ -27,7 +27,7 @@ export class RegistroComponent implements OnInit {
     Contrasena: "",
     Correo: "",
     Fecha_Nacimiento: new Date(),
-    Credito: 0,
+    Credito: 10000,
     idPais: 0,
     Estado: "NOVERIFICADO"
   };
@@ -38,8 +38,13 @@ export class RegistroComponent implements OnInit {
 
   postUsaurio(){
     if(this.Usuario.Contrasena!= '' && this.Usuario.Contrasena == this.confirmPassword){
-      this.usuarioService.postUsuario(this.Usuario, this.Fecha_Nacimiento).subscribe(res=>{
+      this.usuarioService.postUsuario(this.Usuario, this.Fecha_Nacimiento).subscribe((res: any)=>{
         console.log(res);
+        this.usuarioService.postEmail(res, this.Usuario.Correo, "http://localhost:4200/confirmar/"+ res).subscribe(
+          res=>{
+            alert('CORREO ENVIADO');
+          }
+        )
       });
     }
   }

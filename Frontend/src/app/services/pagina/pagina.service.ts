@@ -13,7 +13,7 @@ export class PaginaService {
   })
 
   getPagina(id:string){
-    const url = "http://localhost:3000/pagina/"+id;
+    const url = "http://07fcba2a17bd.ngrok.io/pagina/"+id;
     return this.http.get(url);
   }
 }

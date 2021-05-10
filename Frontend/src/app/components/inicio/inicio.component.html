@@ -1,13 +1,38 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand"  routerLink="/inicio">Inicio</a>
     <a class="navbar-brand"  routerLink="/perfil">Perfil</a>
     <a class="navbar-brand"  routerLink="/publicacion">Publicaciones</a>
     <a class="navbar-brand"  routerLink="/carrito">Carrito</a>
-  </nav>
-
+</nav>
 
 
 <div class="container mt-5">
+  <div class="row m-5">
+    <form>
+      <fieldset>
+        <div class="form-row">
+          <div class="form-group col">
+            <input class="form-control form-control-sm" type="text" placeholder="PALABRA CLAVE" name="palabra" [(ngModel)]="palabra" id="inputSmall">
+          </div>
+          <div class="form-group col">
+            <select class="form-control" [(ngModel)]="idCategoria" name="idCategoria" id="exampleSelect1">
+              <option *ngFor="let categoria of Categoria" value="{{categoria.idCategoria}}">{{categoria.Categoria}}</option>
+            </select>
+          </div>
+          <div class="form-group col">
+            <select class="form-control" [(ngModel)]="orden" name="orden" id="exampleSelect1">
+              <option value="ASCENDENTE">ASCENDENTE</option>
+              <option value="DESCENDENTE">DESCENDETE</option>
+            </select>
+          </div>
+          <div class="form-group col">
+            <a type="button" (click)="getBusqueda()" class="btn btn-secondary btn-large">BUSCAR</a>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
 
   <div class="col-8">
       <div class="row">

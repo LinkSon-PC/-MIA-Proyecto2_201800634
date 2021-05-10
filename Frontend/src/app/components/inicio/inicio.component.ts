@@ -3,6 +3,8 @@ import {Route, Router, ActivatedRoute} from '@angular/router';
 import { UsuarioService } from '../../services/usuario/usuario.service';
 import { ProductosService } from '../../services/productos/productos.service';
 import { ProductoInterface } from '../../models/productoInterface';
+import { CategoriaService } from '../../services/categoria/categoria.service';
+import { CategoriaInterface } from '../../models/categoriaInterface';
 
 @Component({
   selector: 'app-inicio',
@@ -11,28 +13,26 @@ import { ProductoInterface } from '../../models/productoInterface';
 })
 export class InicioComponent implements OnInit {
 
-  constructor(public productosService: ProductosService, private router: Router, private usuarioService: UsuarioService) { }
+  constructor(public productosService: ProductosService, private router: Router,
+     private usuarioService: UsuarioService, private categoriaService:CategoriaService) { }
 
 
   ngOnInit(): void {
     this.productosService.getProductos().subscribe((res: ProductoInterface[])=>{
       this.Productos = res;
     });
-  }
-  Productos: ProductoInterface[]=[];
 
-  Nombre:string = "";
-  Detalle_Producto:string = "";
-  Precio:number = 0;
+    this.categoriaService.getCategoria().subscribe((res: CategoriaInterface[])=>{
+      this.Categoria = res;
+    });
+  }
+  Productos: ProductoInterface[] = [];
+  Categoria: CategoriaInterface[] = [];
+
+  palabra:string = "";
   idCategoria:number = 0;
-  idUsuario:number = 0;
-  Estado:string = "VISIBLE";
+  orden:string = "";
 
-  addProducto(){ 
-    this.productosService.postProducto(this.Nombre,this.Detalle_Producto,this.Precio,this.idCategoria,this.idUsuario,this.Estado).subscribe((res: ProductoInterface[])=>{
-      this.Productos = res;
-    })
-  }
 
   Imprimir(){
     let usuario = localStorage.getItem("Usuario");
@@ -46,6 +46,13 @@ export class InicioComponent implements OnInit {
   anadirCarrito(idProducto: number){
     this.productosService.añadirCarrito(this.usuarioService.getSesionId(), idProducto.toString()).subscribe(res=>{
       console.log(res);
+    })
+  }
+
+  getBusqueda(){
+    console.log(this.palabra, this.idCategoria, this.orden);
+    this.productosService.postBusqueda(this.palabra,this.idCategoria,this.orden).subscribe((res: ProductoInterface[])=>{
+      this.Productos = res;
     })
   }
 

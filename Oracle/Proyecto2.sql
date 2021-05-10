@@ -17,7 +17,8 @@ FOREIGN KEY (idPais) REFERENCES Pais(idPais)
 );
 
 SELECT * FROM Usuario;
-delete from Usuario WHERE idUsuario = 26;
+select Correo from Usuario where correo='tonyfernandosonmux@gmail.com';
+delete  from Usuario WHERE idUsuario = 27;
 select max(idUsuario) from Usuario;
 update  usuario set Fecha_Nacimiento = TO_DATE('2020-10-9','YYYY-MM-DD') WHERE idusuario=1;
 COMMIT WORK;
@@ -51,6 +52,7 @@ FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario)
 );
 select * from producto;
 select * from producto where idUsuario = 0;
+select * from producto where nombre like '%%' AND idCategoria = 5  order by precio asc;
 
 
 CREATE TABLE Palabra_Clave (
@@ -70,11 +72,7 @@ Estado VARCHAR2(15),
 FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario)
 );
 SELECT * FROM Carrito;
-select  Producto.idProducto, Producto.nombre, producto.detalle_producto, producto.precio  from Detalle_Carrito, Carrito, Producto WHERE Carrito.idUsuario = 1
-            AND Carrito.idCarrito = Detalle_Carrito.idCarrito
-            AND Carrito.Estado = 'NO_CANCELADO'
-            AND producto.idproducto = detalle_carrito.idproducto;
-DELETE FROM Carrito WHERE idUsuario =21;
+DELETE FROM Carrito WHERE idUsuario =45;
 INSERT INTO Carrito(idUsuario, Estado) VALUES (21,'NO_CANCELADO');
 insert into Carrito(idUsuario, Estado) VALUES ((select max(idUsuario) from Usuario), 'NO_CANCELADO');
 insert into Detalle_Carrito(idCarrito,idProducto,Cantidad) values 
@@ -90,6 +88,56 @@ FOREIGN KEY (idCarrito) REFERENCES Carrito(idCarrito),
 FOREIGN KEY (idProducto) REFERENCES Producto(idProducto)
 );
 SELECT * FROM Detalle_Carrito;
+select detalle_carrito.iddetalle_carrito, Producto.idProducto, Producto.nombre, producto.detalle_producto, producto.precio
+            from Detalle_Carrito, Carrito, Producto WHERE Carrito.idUsuario = 1
+            AND Carrito.idCarrito = Detalle_Carrito.idCarrito
+            AND Carrito.Estado = 'NO_CANCELADO'
+            AND producto.idproducto = detalle_carrito.idproducto;
+            
+update usuario set Credito = (Credito + 600) where 
+idusuario = (select Usuario.idUsuario from Usuario,Producto 
+                where idProducto = 1
+                and Usuario.idUsuario = Producto.idUsuario);
+select * from usuario;
+update usuario set Credito = 10000 where idUsuario = 1;
+COMMIT WORK;
+--TOTAL DEL CARRITO
+select Carrito.idCarrito, Usuario.Credito, sum(Producto.precio) as Total from Detalle_Carrito, Carrito, Producto, Usuario
+where Carrito.idCarrito = Detalle_Carrito.idCarrito
+and Detalle_Carrito.idProducto = Producto.idProducto
+and Usuario.idUsuario = 1
+and Carrito.idUsuario = Usuario.idUsuario
+and Carrito.Estado = 'NO_CANCELADO'
+group by Carrito.idCarrito, Usuario.Credito;
+
+--REPORTE PRODUCTOS MÁS VENDIDOS
+SELECT  Producto.nombre, count(Producto.idProducto) as Cantidad from Detalle_Carrito, Producto
+where Detalle_Carrito.idProducto = Producto.idProducto
+and rownum <= 10
+group by Producto.nombre order by Cantidad desc ;
+
+
+--REPORTE CLIENETES CON MAY Y MENOS CREDITOS
+SELECT * FROM usuario where estado = 'VERIFICADO' and rownum <=10 order by Credito desc;
+
+
+--REPORTE CLIENTES CON MAS PUBLICACIONES
+SELECT DISTINCT Usuario.Nombre, Usuario.Correo, Usuario.Credito, count(usuario.Nombre) as Cantidad FROM Usuario, Producto
+where Producto.idUsuario = Usuario.idUsuario
+and rownum <= 10
+group by (Usuario.Nombre, Usuario.Correo, Usuario.Credito) order by Cantidad DESC;
+
+--REPORTE CANTIDAD DE CLIENTES, CRETIDOS,PRODUCTOS POR PAIS
+Select DISTINCT Tabla.Pais, count(Producto.idProducto) as Cantidad_Producto, sum(Usuario.Credito) as Cantidad_Credito, Tabla.Cantidad_Cliente
+from
+    (select Distinct Pais.Pais, Pais.idPais, count(Usuario.idUsuario) as Cantidad_Cliente FROM Usuario, Pais
+    where Usuario.idPais = Pais.idPais
+    group by Pais.Pais, Pais.idPais )  Tabla, Usuario,Producto
+where Producto.idUsuario = Usuario.idUsuario
+and Usuario.idPais = tabla.idpais
+and rownum <= 10 
+group by Tabla.Pais, Cantidad_Cliente, Tabla.Cantidad_Cliente order by Cantidad_Credito, tabla.cantidad_cliente, Cantidad_Producto desc ;
+
 
 drop table Producto;
 INSERT INTO usuario (nombre, contrasena) values ('anthonhy','password');

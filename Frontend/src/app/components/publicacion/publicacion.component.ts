@@ -12,7 +12,8 @@ import { UsuarioService } from '../../services/usuario/usuario.service';
 })
 export class PublicacionComponent implements OnInit {
 
-  constructor(private router: Router, private productoService: ProductosService, private usuarioService:UsuarioService) { }
+  constructor(private router: Router, private productoService: ProductosService,
+     private usuarioService:UsuarioService) { }
 
   Publicaciones:ProductoInterface[] = [];
 

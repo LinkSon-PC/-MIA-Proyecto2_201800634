@@ -9,7 +9,7 @@ export class PaisService {
   constructor(private http: HttpClient){ }
 
   getPais(){
-    const url = "http://localhost:3000/pais";
+    const url = "http://07fcba2a17bd.ngrok.io/pais";
     return this.http.get(url);
   }
 }

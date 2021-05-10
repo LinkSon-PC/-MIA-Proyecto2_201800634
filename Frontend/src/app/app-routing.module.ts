@@ -9,6 +9,9 @@ import { PublicacionComponent } from './components/publicacion/publicacion.compo
 import { NuevoPublicacionComponent } from './components/nuevo-publicacion/nuevo-publicacion.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { CarritoComponent } from './components/carrito/carrito.component';
+import { ContrasenaComponent } from './components/contrasena/contrasena.component';
+import { ConfirmarComponent } from './components/confirmar/confirmar.component';
+import { ReportesComponent } from './components/reportes/reportes.component';
 
 const routes: Routes = [
   {
@@ -35,12 +38,26 @@ const routes: Routes = [
   {
     path: 'nuevo_publicacion',
     component: NuevoPublicacionComponent
-  },{
+  },
+  {
     path: 'registro',
     component: RegistroComponent
-  },{
+  },
+  {
     path: 'carrito',
     component: CarritoComponent
+  },
+  {
+    path: 'contrasena/:id',
+    component: ContrasenaComponent
+  },
+  {
+    path: 'confirmar/:id',
+    component: ConfirmarComponent
+  },
+  {
+    path: 'reportes',
+    component: ReportesComponent
   }
 ];
 

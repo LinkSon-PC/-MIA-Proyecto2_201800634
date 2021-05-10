@@ -28,17 +28,17 @@ export class UsuarioService {
   }
 
   getUsuario(usuario:string, password:string){
-    const url = "http://localhost:3000/login/"+usuario+"/"+password;
+    const url = "http://07fcba2a17bd.ngrok.io/login/"+usuario+"/"+password;
     return this.http.get(url);
   }
   
   BuscarUsuario(id:string){
-    const url = "http://localhost:3000/login/"+id;
+    const url = "http://07fcba2a17bd.ngrok.io/login/"+id;
     return this.http.get(url);
   }
 
   putUsuario(usuario: UsuarioInterface, fecha: string){
-    const url = "http://localhost:3000/";
+    const url = "http://07fcba2a17bd.ngrok.io/";
     return this.http.put(
       url,
       {
@@ -58,7 +58,7 @@ export class UsuarioService {
  
   }
   postUsuario(usuario: UsuarioInterface, fecha: string){
-    const url = "http://localhost:3000/";
+    const url = "http://07fcba2a17bd.ngrok.io/";
     return this.http.post(
       url,
       {
@@ -75,6 +75,43 @@ export class UsuarioService {
       { headers: this.headers }
     ).pipe(map(data => data));
  
+  }
+
+  Reestablecer_Correo(correo:String){
+    const url = "http://07fcba2a17bd.ngrok.io/reestablecer/"+correo;
+    return this.http.get(url);
+  }
+  Reestablecer_Contrasena(id:String, contrasena: String){
+    const url = "http://07fcba2a17bd.ngrok.io/reestablecer/contrasena/"+id;
+    return this.http.put(url,
+      {
+        Contrasena: contrasena
+      }
+      ,
+      { headers: this.headers }
+    ).pipe(map(data => data));
+  }
+
+  Confirmar_Usuario(id: String){
+    const url = "http://07fcba2a17bd.ngrok.io/confirmar/"+id;
+    return this.http.put(url,
+      { }
+      ,
+      { headers: this.headers }
+    ).pipe(map(data => data));
+  }
+
+  postEmail(id:Number, Correo:String, Texto: String){
+    const url = "http://07fcba2a17bd.ngrok.io/send-mail";
+    return this.http.post(url,
+      {
+        correo: Correo,
+        asunto: "CONFIRMACION DE CORREO",
+        texto: Texto
+      }
+      ,
+      { headers: this.headers }
+    ).pipe(map(data => data));
   }
   
   setSesion(user:UsuarioInterface){

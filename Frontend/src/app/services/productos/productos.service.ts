@@ -13,22 +13,22 @@ export class ProductosService {
   })
 
   getProductos(){
-    const url = "http://localhost:3000/producto";
+    const url = "http://07fcba2a17bd.ngrok.io/producto";
     return this.http.get(url);
   }
 
   getPublicaciones(id:string){
-    const url = "http://localhost:3000/publicacion/"+id;
+    const url = "http://07fcba2a17bd.ngrok.io/publicacion/"+id;
     return this.http.get(url);
   }
 
 
   getCarrito(id:string){
-    const url = "http://localhost:3000/carrito/"+id;
+    const url = "http://07fcba2a17bd.ngrok.io/carrito/"+id;
     return this.http.get(url);
   }
   añadirCarrito(id:string,producto:string){
-    const url = "http://localhost:3000/carrito";
+    const url = "http://07fcba2a17bd.ngrok.io/carrito";
     return this.http.post(
       url,
       {
@@ -39,15 +39,46 @@ export class ProductosService {
       { headers: this.headers }
     ).pipe(map(data => data));
   }
+  deleteCarrito(id: string){
+    const url = "http://07fcba2a17bd.ngrok.io/carrito/" + id;
+    return this.http.delete(url).pipe(map(data => data));
+  }
+  getCabezera(id: string){
+    const url = "http://07fcba2a17bd.ngrok.io/carrito/cabezera/" + id;
+    return this.http.get(url);
+  }
+
+  Compra(id:Number, _total: Number){
+    const url = "http://07fcba2a17bd.ngrok.io/compra/"+id;
+    return this.http.put(
+      url,
+      {
+        Credito: _total
+      }
+      ,
+      { headers: this.headers }
+    ).pipe(map(data => data));
+  }
+  Venta(id:Number, _total: Number){
+    const url = "http://07fcba2a17bd.ngrok.io/venta/"+id;
+    return this.http.put(
+      url,
+      {
+        Credito: _total
+      }
+      ,
+      { headers: this.headers }
+    ).pipe(map(data => data));
+  }
 
 
   deleteProducto(id:any){
-    const url = "http://localhost:3000/producto/" + id;
+    const url = "http://07fcba2a17bd.ngrok.io/producto/" + id;
     return this.http.delete(url).pipe(map(data => data));
   }
 
   postProducto(Nombre: String, Detalle_Producto: String , Precio: Number, idCategoria:Number, idUsuario:Number, Estado: String){
-    const url = "http://localhost:3000/producto"
+    const url = "http://07fcba2a17bd.ngrok.io/producto";
     return this.http.post(
       url,
       {
@@ -61,5 +92,19 @@ export class ProductosService {
       { headers: this.headers }
     ).pipe(map(data => data));
 
+  }
+
+
+  postBusqueda(palabra: String, idCategoria: Number , orden: String){
+    const url = "http://07fcba2a17bd.ngrok.io/buscar";
+    return this.http.post(
+      url,
+      {
+        "nombre": palabra,
+        "idCategoria": idCategoria,
+        "orden": orden
+      },
+      { headers: this.headers }
+    ).pipe(map(data => data));
   }
 }

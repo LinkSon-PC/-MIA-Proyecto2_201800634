@@ -1,4 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand"  routerLink="/inicio">Inicio</a>
     <a class="navbar-brand"  routerLink="/perfil">Perfil</a>
     <a class="navbar-brand"  routerLink="/publicacion">Publicaciones</a>
     <a class="navbar-brand"  routerLink="/carrito">Carrito</a>
@@ -27,7 +28,7 @@
         <td>{{publicacion.Detalle_Producto}}</td>
         <td>{{publicacion.Precio}}</td>
         <td>
-            <a class="btn btn-primary" href="#" role="button">{{publicacion.Estado}}</a>
+            <a class="btn btn-primary" role="button">{{publicacion.Estado}}</a>
         </td>
       </tr>
       
